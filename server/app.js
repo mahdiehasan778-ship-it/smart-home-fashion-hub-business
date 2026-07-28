@@ -1,32 +1,31 @@
-import React from 'react';
-import TopBar from './components/TopBar';
-import Header from './components/Header';
-import Navbar from './components/Navbar';
-import HeroCarousel from './components/HeroCarousel';
-import CircularCategoryGrid from './components/CircularCategoryGrid';
+import express from 'express';
+import cors from 'cors';
 
-function App() {
-  return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans">
-      {/* Top Bar with Announcement & Quick Links */}
-      <TopBar />
+// Routes Import
+import blogRoutes from './routes/blog.routes.js';
+import categoriesRoutes from './routes/categories.routes.js';
+import dealsRoutes from './routes/deals.routes.js';
+import newsletterRoutes from './routes/newsletter.routes.js';
+import productsRoutes from './routes/products.routes.js';
+import siteContentRoutes from './routes/siteContent.routes.js';
 
-      {/* Main Header with Logo, Search, Profile, Wishlist, and Cart */}
-      <Header />
+const app = express();
 
-      {/* Navigation Bar with Category Mega Menu */}
-      <Navbar />
+// Middlewares
+app.use(cors());
+app.use(express.json());
 
-      {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
-        {/* Hero Section Carousel */}
-        <HeroCarousel />
+// API Routes
+app.use('/api/blogs', blogRoutes);
+app.use('/api/categories', categoriesRoutes);
+app.use('/api/deals', dealsRoutes);
+app.use('/api/newsletter', newsletterRoutes);
+app.use('/api/products', productsRoutes);
+app.use('/api/site-content', siteContentRoutes);
 
-        {/* Circular Category Grid Section */}
-        <CircularCategoryGrid />
-      </main>
-    </div>
-  );
-}
+// Health Check Endpoint
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'OK', message: 'Server is healthy' });
+});
 
-export default App;
+export default app;
