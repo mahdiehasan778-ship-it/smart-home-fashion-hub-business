@@ -1,7 +1,8 @@
 import { Router } from 'express';
-import { getSiteContent } from '../controllers/siteContent.controller.js';
 
 const router = Router();
+
+export const getSiteContent = (req, res) => { res.json({}); };
 
 router.get('/', getSiteContent);
 

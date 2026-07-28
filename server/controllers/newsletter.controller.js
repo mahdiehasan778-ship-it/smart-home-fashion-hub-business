@@ -1,7 +1,8 @@
 import { Router } from 'express';
-import { subscribeNewsletter } from '../controllers/newsletter.controller.js';
 
 const router = Router();
+
+export const subscribeNewsletter = (req, res) => { res.json({ message: 'Subscribed' }); };
 
 router.post('/subscribe', subscribeNewsletter);
 
